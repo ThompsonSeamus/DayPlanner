@@ -36,6 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
         android:clickable="true"
+        android:onClick="goToAddEvent"
+        android:contentDescription="A button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_add_24" />

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "648318997149",
+    "project_id": "dayplanner-aa444",
+    "storage_bucket": "dayplanner-aa444.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648318997149:android:2387656fda6a53972ffa74",
+        "android_client_info": {
+          "package_name": "com.example.dayplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "648318997149-f7205qfib84t3oomtp2ntgbsg6e5c5u2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0fRMdewcH4MNGT0Glhwhbu886oB4jFbQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "648318997149-f7205qfib84t3oomtp2ntgbsg6e5c5u2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
