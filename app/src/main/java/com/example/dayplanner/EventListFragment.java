@@ -1,6 +1,7 @@
 package com.example.dayplanner;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dayplanner.placeholder.PlaceholderContent;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 /**
  * A fragment representing a list of Items.
@@ -21,6 +27,8 @@ public class EventListFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private static final String SAVED_EVENTS = "saved_events";
+    private static final String PREFS = "shared_prefs";
     // TODO: Customize parameters
     private int mColumnCount = 1;
 
@@ -64,8 +72,18 @@ public class EventListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new EventRecyclerViewAdapter(PlaceholderContent.ITEMS));
+            recyclerView.setAdapter(new EventRecyclerViewAdapter(getEvents()));
         }
         return view;
+    }
+
+    private ArrayList<Event> getEvents(){
+        SharedPreferences preferences = getActivity().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String eventsJSON = preferences.getString(SAVED_EVENTS, "");
+        Type type = new TypeToken<ArrayList<Event>>(){}.getType();
+        ArrayList<Event> events = gson.fromJson(eventsJSON, type);
+        if(events == null){return new ArrayList<>();}
+        return events;
     }
 }

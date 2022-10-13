@@ -18,9 +18,9 @@ import java.util.List;
  */
 public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecyclerViewAdapter.ViewHolder> {
 
-    private final List<PlaceholderItem> mValues;
+    private final List<Event> mValues;
 
-    public EventRecyclerViewAdapter(List<PlaceholderItem> items) {
+    public EventRecyclerViewAdapter(List<Event> items) {
         mValues = items;
     }
 
@@ -34,8 +34,8 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText(mValues.get(position).getDate());
+        holder.mContentView.setText(mValues.get(position).getName());
     }
 
     @Override
@@ -46,7 +46,7 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView mIdView;
         public final TextView mContentView;
-        public PlaceholderItem mItem;
+        public Event mItem;
 
         public ViewHolder(FragmentEventListItemBinding binding) {
             super(binding.getRoot());

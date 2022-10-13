@@ -9,7 +9,7 @@ public class Event {
         this.name = name;
     }
 
-    public void setTime(String time) {
+    public void setDate(String time) {
         this.time = time;
     }
 
@@ -17,7 +17,7 @@ public class Event {
         this.name = name;
     }
 
-    public String getTime() {
+    public String getDate() {
         return time;
     }
 
