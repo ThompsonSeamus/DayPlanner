@@ -2,26 +2,29 @@ package com.example.dayplanner;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.dayplanner.placeholder.PlaceholderContent.PlaceholderItem;
 import com.example.dayplanner.databinding.FragmentEventListItemBinding;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link PlaceholderItem}.
+ * {@link RecyclerView.Adapter} that can display a {@link}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Event> mValues;
+    private List<Event> mValues;
+    private final Context context;
 
-    public EventRecyclerViewAdapter(List<Event> items) {
-        mValues = items;
+    public EventRecyclerViewAdapter(Context context) {
+        this.context = context;
+
+
     }
 
     @Override
@@ -40,7 +43,7 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mValues == null ? 0 : mValues.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -58,5 +61,10 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
         }
+    }
+
+    public void setEvents(List<Event> events){
+        this.mValues = events;
+        notifyDataSetChanged();
     }
 }

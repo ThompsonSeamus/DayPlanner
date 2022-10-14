@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,12 +16,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.dayplanner.placeholder.PlaceholderContent;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -72,7 +75,18 @@ public class EventListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new EventRecyclerViewAdapter(getEvents()));
+            EventRecyclerViewAdapter adapter = new EventRecyclerViewAdapter(context);
+
+            EventListViewModel eventListViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(EventListViewModel.class);
+            eventListViewModel.getEvents().observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
+                @Override
+                public void onChanged(List<Event> events) {
+                    adapter.setEvents(events);
+                }
+            });
+
+
+            recyclerView.setAdapter(adapter);
         }
         return view;
     }

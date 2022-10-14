@@ -1,6 +1,8 @@
 package com.example.dayplanner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.usage.EventStats;
 import android.content.SharedPreferences;
@@ -13,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddEventActivity extends AppCompatActivity {
 
@@ -28,34 +31,19 @@ public class AddEventActivity extends AppCompatActivity {
         preferences  = getSharedPreferences(PREFS, MODE_PRIVATE);
     }
 
-    public void addEvent(View view) {
-        EditText dateET = findViewById(R.id.date_edit_text);
-        EditText nameET = findViewById(R.id.event_name_edit_text);
-
-        Event event = new Event(dateET.getText().toString(), nameET.getText().toString());
-        events = getEvents();
-        events.add(event);
-        saveEvents();
-
-        finish();
-    }
-
     public void cancel(View view){finish();}
 
-    private void saveEvents(){
-        Gson gson = new Gson();
-        String eventsJSON = gson.toJson(events);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(SAVED_EVENTS, eventsJSON).commit();
-    }
+    public void addEvent(View view) {
+        EventListViewModel eventListViewModel = new ViewModelProvider(this).get(EventListViewModel.class);
+        EditText dateET = findViewById(R.id.date_edit_text);
+        EditText nameET = findViewById(R.id.event_name_edit_text);
+        Event event = new Event(dateET.getText().toString(), nameET.getText().toString());
+        List<Event> events = eventListViewModel.getEvents().getValue();
+        events.add(event);
+        eventListViewModel.setEvents(new MutableLiveData<>(events));
 
-    private ArrayList<Event> getEvents(){
-        Gson gson = new Gson();
-        String eventsJSON = preferences.getString(SAVED_EVENTS, "");
-        Type type = new TypeToken<ArrayList<Event>>(){}.getType();
-        ArrayList<Event> events = gson.fromJson(eventsJSON, type);
-        if(events == null){return new ArrayList<>();}
-        return events;
+
+        finish();
     }
 
 
