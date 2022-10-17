@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.usage.EventStats;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
@@ -34,14 +36,18 @@ public class AddEventActivity extends AppCompatActivity {
     public void cancel(View view){finish();}
 
     public void addEvent(View view) {
-        EventListViewModel eventListViewModel = new ViewModelProvider(this).get(EventListViewModel.class);
         EditText dateET = findViewById(R.id.date_edit_text);
         EditText nameET = findViewById(R.id.event_name_edit_text);
-        Event event = new Event(dateET.getText().toString(), nameET.getText().toString());
-        List<Event> events = eventListViewModel.getEvents().getValue();
-        events.add(event);
-        eventListViewModel.setEvents(new MutableLiveData<>(events));
 
+        Intent replyintent = new Intent();
+        if(TextUtils.isEmpty(dateET.getText()) || TextUtils.isEmpty(nameET.getText())){
+            setResult(RESULT_CANCELED, replyintent);
+        }
+        else{
+            replyintent.putExtra(MainActivity.EVENT_DATE, dateET.getText().toString());
+            replyintent.putExtra(MainActivity.EVENT_NAME, nameET.getText().toString());
+            setResult(RESULT_OK, replyintent);
+        }
 
         finish();
     }

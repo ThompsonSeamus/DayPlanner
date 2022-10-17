@@ -76,7 +76,7 @@ public class EventListFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             EventRecyclerViewAdapter adapter = new EventRecyclerViewAdapter(context);
-
+            recyclerView.setAdapter(adapter);
             EventListViewModel eventListViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(EventListViewModel.class);
             eventListViewModel.getEvents().observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
                 @Override
@@ -86,7 +86,7 @@ public class EventListFragment extends Fragment {
             });
 
 
-            recyclerView.setAdapter(adapter);
+
         }
         return view;
     }
