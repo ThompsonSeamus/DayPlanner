@@ -24,7 +24,6 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
     public EventRecyclerViewAdapter(Context context) {
         this.context = context;
 
-
     }
 
     @Override

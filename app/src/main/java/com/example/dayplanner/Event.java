@@ -1,6 +1,9 @@
 package com.example.dayplanner;
 
-public class Event {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Event implements Parcelable {
     private String time;
     private String name;
 
@@ -8,6 +11,23 @@ public class Event {
         this.time = time;
         this.name = name;
     }
+
+    protected Event(Parcel in) {
+        time = in.readString();
+        name = in.readString();
+    }
+
+    public static final Creator<Event> CREATOR = new Creator<Event>() {
+        @Override
+        public Event createFromParcel(Parcel in) {
+            return new Event(in);
+        }
+
+        @Override
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
 
     public void setDate(String time) {
         this.time = time;
@@ -23,5 +43,16 @@ public class Event {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(time);
+        parcel.writeString(name);
     }
 }
