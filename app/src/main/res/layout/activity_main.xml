@@ -5,7 +5,21 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/pixel_junk_background_edited"
     tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/backgroundTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_condensed_regular"
+        android:text="@string/my_day"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/black"
+        android:textSize="63sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -14,6 +28,7 @@
         android:fontFamily="@font/ubuntu_condensed_regular"
         android:text="@string/my_day"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/white"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,8 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
         android:clickable="true"
-        android:onClick="goToAddEvent"
         android:contentDescription="A button"
+        android:onClick="goToAddEvent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_add_24" />

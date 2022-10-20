@@ -8,7 +8,9 @@ import android.app.usage.EventStats;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
@@ -25,18 +27,19 @@ public class AddEventActivity extends AppCompatActivity {
     private static final String SAVED_EVENTS = "saved_events";
     private ArrayList<Event> events;
     SharedPreferences preferences;
+    EditText dateET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
         preferences  = getSharedPreferences(PREFS, MODE_PRIVATE);
+        dateET.addTextChangedListener(new DateTextWatcher());
     }
 
     public void cancel(View view){finish();}
 
     public void addEvent(View view) {
-        EditText dateET = findViewById(R.id.date_edit_text);
         EditText nameET = findViewById(R.id.event_name_edit_text);
 
         Intent replyintent = new Intent();
@@ -53,5 +56,39 @@ public class AddEventActivity extends AppCompatActivity {
     }
 
 
+    private class DateTextWatcher implements TextWatcher {
 
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String working = s.toString();
+            boolean isValid = true;
+            int month;
+
+            if(working.length() == 0){
+                dateET.setError(null);
+            }
+            else if(working.length() == 1){
+                try{
+                    month = Integer.parseInt(working);
+                    if(month > 1 && month < 10){
+                        working = "0" + working + "/";
+                        dateET.setText(working);
+                        dateET.setSelection(working.length());
+                    }
+                }catch(NumberFormatException e){
+                    isValid = false;
+                }
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    }
 }

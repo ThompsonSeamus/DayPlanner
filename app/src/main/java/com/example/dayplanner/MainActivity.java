@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        eventListViewModel = new ViewModelProvider(this, new SavedStateViewModelFactory(this)).get(EventListViewModel.class);
+        eventListViewModel = new ViewModelProvider(this).get(EventListViewModel.class);
     }
 
     public void goToAddEvent(View view){
