@@ -20,10 +20,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/date_edit_text_layout"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
+        app:endIconDrawable="@drawable/ic_baseline_calendar_view_month_24"
+        app:endIconMode="custom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_new_event">
 
@@ -42,14 +44,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
+        android:id="@+id/event_name_edit_text_layout"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+        app:layout_constraintEnd_toEndOf="@+id/date_edit_text_layout"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+        app:layout_constraintStart_toStartOf="@+id/date_edit_text_layout"
+        app:layout_constraintTop_toBottomOf="@+id/date_edit_text_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/event_name_edit_text"
@@ -71,8 +73,8 @@
         android:onClick="cancel"
         android:text="Cancel"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+        app:layout_constraintStart_toStartOf="@+id/event_name_edit_text_layout"
+        app:layout_constraintTop_toBottomOf="@+id/event_name_edit_text_layout" />
 
     <Button
         android:id="@+id/confirm"
@@ -82,7 +84,7 @@
         android:onClick="addEvent"
         android:text="Confirm"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
+        app:layout_constraintEnd_toEndOf="@+id/event_name_edit_text_layout"
         app:layout_constraintStart_toEndOf="@+id/cancel"
         app:layout_constraintTop_toTopOf="@+id/cancel" />
 
