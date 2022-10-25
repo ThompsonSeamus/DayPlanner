@@ -1,8 +1,10 @@
 package com.example.dayplanner;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -44,11 +46,26 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getDate());
         holder.mContentView.setText(mValues.get(position).getName());
+        //delete button
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mValues.remove(holder.mItem);
-                setEvents(mValues);
+                new AlertDialog.Builder(context)
+                        .setTitle(R.string.remove_title)
+                        .setMessage(R.string.confirmMessage)
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                mValues.remove(holder.mItem);
+                                setEvents(mValues);
+                            }
+                        }).create().show();
             }
         });
     }
