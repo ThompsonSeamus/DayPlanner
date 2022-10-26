@@ -10,6 +10,7 @@ import android.app.NotificationManager;
 import android.app.usage.EventStats;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,6 +19,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.MediaController;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -35,8 +37,11 @@ public class AddEventActivity extends AppCompatActivity {
 
     public static final String ERROR_MESSAGE = "Enter a valid date: MM/DD/YYYY";
 
-    EditText dateET;
-    TextInputLayout dateLayout;
+    private EditText dateET;
+    private TextInputLayout dateLayout;
+    private MediaPlayer mediaPlayer;
+    private MediaPlayer weeWoo;
+    private MediaController mediaController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,17 @@ public class AddEventActivity extends AppCompatActivity {
         dateLayout = findViewById(R.id.date_edit_text_layout);
         dateLayout.setEndIconOnClickListener(new EventDateListener());
 
+        mediaPlayer = mediaPlayer.create(this, R.raw.wacka_waaa);
+        weeWoo = mediaPlayer.create(this, R.raw.weewooweewoo);
+        weeWoo.setLooping(true);
+        weeWoo.start();
+
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        weeWoo.stop();
     }
 
 
@@ -62,6 +78,8 @@ public class AddEventActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(dateET.getText()) || TextUtils.isEmpty(nameET.getText())) {
             setResult(RESULT_CANCELED, replyintent);
         } else {
+            weeWoo.stop();
+            mediaPlayer.start();
             replyintent.putExtra(MainActivity.EVENT_DATE, dateET.getText().toString());
             replyintent.putExtra(MainActivity.EVENT_NAME, nameET.getText().toString());
             setResult(RESULT_OK, replyintent);

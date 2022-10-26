@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
     private final Context context;
     private static final String SAVED_EVENTS = "saved_events";
     private static final String PREFS = "shared_prefs";
+
+    private MediaPlayer mediaPlayer;
 
     public EventRecyclerViewAdapter(Context context) {
         this.context = context;
@@ -62,6 +65,8 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
                         .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                mediaPlayer = MediaPlayer.create(context, R.raw.nooooo);
+                                mediaPlayer.start();
                                 mValues.remove(holder.mItem);
                                 setEvents(mValues);
                             }
